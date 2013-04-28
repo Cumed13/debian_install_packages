@@ -19,6 +19,7 @@ echo "[1] Install applikasi yang dibutuhkan (Domain dan WebServer)"
 echo "[2] Setting IP dan Name Server"
 echo "[3] Konfigurasi DNS Server"
 echo "[4] Konfigurasi Web Server"
+echo "[5] Restore Backup"
 echo ""
 echo "[x] exit"
 echo ""
@@ -58,8 +59,8 @@ case "$CHOICE" in
 	read broadcast;
 	echo "Masukan IP Network (C:192.168.1.0):"
 	read network;
-	sudo mv /etc/network/interfaces /etc/network/interfaces.bak
-	sudo touch /etc/network/interfaces 
+	sudo cp /etc/network/interfaces /etc/network/interfaces.bak
+	sudo nano /etc/network/interfaces 
 	busybox echo "auto lo" >> /etc/network/interfaces
 	busybox echo "iface lo inet loopback" >> /etc/network/interfaces
 	busybox echo "" >> /etc/network/interfaces
@@ -87,6 +88,27 @@ case "$CHOICE" in
 	echo ""
 	busybox sleep 1
 	clear 
+	;;
+
+	"5")
+	echo ""
+	echo "======================="
+	echo "- Restorisasi  Backup -"
+	echo "======================="
+	sudo rm -rf /etc/network/interfaces
+	sudo cp -rf /etc/network/interfaces.bak /etc/network/interfaces
+	sudo service networking restart
+	busybox sleep 2
+	echo ""
+	echo "Restorisasi Berhasil"
+	echo ""
+	echo "Settingan IP Anda Sekarang : "
+	ifconfig -a
+	echo ""
+	busybox sleep 5
+	read -p "Press [Enter] To Continue"
+	busybox sleep 1
+	clear
 	;;
 
 	"x")

@@ -61,17 +61,11 @@ case "$CHOICE" in
 	read network;
 	sudo cp /etc/network/interfaces /etc/network/interfaces.bak
 	sudo nano /etc/network/interfaces 
-	busybox echo "auto lo" >> /etc/network/interfaces
-	busybox echo "iface lo inet loopback" >> /etc/network/interfaces
-	busybox echo "" >> /etc/network/interfaces
-	busybox echo "auto eth0" >> /etc/network/interfaces
-	busybox echo "iface eth0 inet static" >> /etc/network/interfaces
 	busybox echo "address $IP" >> /etc/network/interfaces
 	busybox echo "network $network" >> /etc/network/interfaces
 	busybox echo "netmask $netmask" >> /etc/network/interfaces
 	busybox echo "broadcast $broadcast" >> /etc/network/interfaces
 	busybox echo "gateway $gateway" >> /etc/network/interfaces
-	busybox echo "" >> /etc/network/interfaces
 	sudo service networking restart
 	echo "Settingan IP Anda Sekarang : "
 	echo "IP        : $IP"
@@ -101,9 +95,6 @@ case "$CHOICE" in
 	busybox sleep 2
 	echo ""
 	echo "Restorisasi Berhasil"
-	echo ""
-	echo "Settingan IP Anda Sekarang : "
-	ifconfig -a
 	echo ""
 	busybox sleep 5
 	read -p "Press [Enter] To Continue"
